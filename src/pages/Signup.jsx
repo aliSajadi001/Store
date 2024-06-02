@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function Signup() {
   let navigate = useNavigate();
@@ -44,7 +43,7 @@ function Signup() {
               body: JSON.stringify(data),
             });
             let respons = await res.json();
-            console.log(respons);
+            
             if (respons.success) {
               data.name = "";
               data.email = "";
@@ -68,18 +67,6 @@ function Signup() {
   };
   return (
     <div className="flex items-center justify-center mt-[100px] ">
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
       <div className="flex flex-col w-full md:w-[400px] mx-4 ">
         <p className="text-black text-3xl font-normal text-center">REGISTER</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

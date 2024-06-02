@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function Login() {
   let navigate = useNavigate();
@@ -43,8 +42,8 @@ function Login() {
             body: JSON.stringify(data),
           });
           let respons = await res.json();
-          console.log(respons);
           if (respons.success) {
+            localStorage.setItem("token", JSON.stringify(respons.token));
             data.email = "";
             data.password = "";
             toast.success(respons.msg);
@@ -64,18 +63,6 @@ function Login() {
   };
   return (
     <div className="flex items-center justify-center mt-[100px] ">
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
       <div className="flex flex-col w-full md:w-[400px] mx-4 ">
         <p className="text-black text-3xl font-normal text-center">Login</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
