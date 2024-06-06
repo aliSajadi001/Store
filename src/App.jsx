@@ -11,6 +11,11 @@ import { useEffect } from "react";
 import Cart from "./pages/Cart";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Admin from "./pages/adminRoutes/Admin";
+import Profile from "./pages/Profile";
+import CreateProduct from "./pages/adminRoutes/CreateProduct";
+import Product from "./pages/adminRoutes/Product";
+import UpdataProducts from "./pages/adminRoutes/UpdataProducts";
 function App() {
   let dispatch = useDispatch();
   let token = JSON.parse(localStorage.getItem("token"));
@@ -49,6 +54,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/createProduct" element={<CreateProduct />} />
+        <Route path="/admin/product" element={<Product />} />
+        <Route path="/admin/updateProducts/:id" element={<UpdataProducts />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>

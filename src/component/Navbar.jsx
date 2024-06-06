@@ -63,10 +63,10 @@ function Navbar() {
           <Link
             onClick={() => setShow(false)}
             className="hover:text-blue-600 p-3 transition-all duration-300 z-50 "
-            to="/profile">
+            to={selector?.user?.role === "true" ? "/admin" : "/profile"}>
             <div className="flex flex-col items-center">
               <p className="text-red-700">{selector?.user?.name}</p>
-              <p className="text-red-700 ">{selector?.user?.email}</p>
+              <p className="text-red-700 underline">{selector?.user?.email}</p>
             </div>
           </Link>
         ) : (
