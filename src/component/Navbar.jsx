@@ -20,9 +20,9 @@ function Navbar() {
   return (
     <div className="flex relative mx-auto items-center justify-between px-10 h-14 ">
       <div>
-        <p>
+        <Link to="/">
           <MdOutlineShoppingBag className="font-bold text-2xl text-blue-500" />
-        </p>
+        </Link>
       </div>
       <div
         className={`flex  flex-col gap-3 absolute top-0 right-0 md:flex-row  md:items-center md:static  bg-black text-white md:space-x-5 md:bg-white opacity-100 bg-opacity-90 md:text-black w-full md:w-auto text-center h-fit md:h-auto ${

@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 
 function CrateProducts() {
   let categorys = [
-    "Foodstuffs",
-    "machinery",
     "Tools",
-    " Fruits",
     "computer ",
     "mobile phones",
+    "watch",
+    "supplement",
+    "toy",
   ];
 
   let [name, setName] = useState("");
