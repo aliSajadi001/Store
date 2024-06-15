@@ -6,23 +6,15 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import { toast } from "react-toastify";
-
+import Category from "../../component/Categorys";
 function CrateProducts() {
-  let categorys = [
-    "Tools",
-    "computer ",
-    "mobile phones",
-    "watch",
-    "supplement",
-    "toy",
-  ];
-
   let [name, setName] = useState("");
   let [price, setPrice] = useState(0);
   let [quantity, setQuantity] = useState(0);
   let [images, setImages] = useState([]);
   let [category, setCategory] = useState("");
   let [discription, setDiscription] = useState("");
+
   let uploadeImage = (e) => {
     let newEmage = e.target.files;
     setImages((prev) => [...prev, ...newEmage]);
@@ -31,29 +23,28 @@ function CrateProducts() {
   let handleDragDrop = (result) => {
     if (!result.destination) return;
     let item = Array.from(images);
-    let [dragItem] = item.slice(result.source.index, 1);
-    item.slice(result.destination.index, 0, dragItem);
+    let [dragItem] = item.splice(result.source.index, 1);
+    item.splice(result.destination.index, 0, dragItem);
+    setImages(item);
   };
+
   let removeItem = (item) => {
     setImages((prev) => prev.filter((image) => image !== item));
   };
+  let data = new FormData();
+
   let handleSubmit = async (e) => {
     e.preventDefault();
+    data.append("name", name);
+    data.append("price", price);
+    data.append("category", category);
+    data.append("quantity", quantity);
+    data.append("discription", discription);
+    images?.forEach((img) => {
+      data.append("images", img);
+    });
     try {
-      let formData = new FormData();
-      formData.append("name", name);
-      formData.append("price", price);
-      formData.append("quantity", quantity);
-      formData.append("discription", discription);
-      formData.append("category", category);
-      images.forEach((image) => {
-        formData.append("images", image);
-      });
-
-      let res = await axios.post(
-        "http://localhost:3001/createProduct",
-        formData
-      );
+      let res = await axios.post("http://localhost:3001/createProduct", data);
 
       if (res.data.success) {
         toast.success("Productes saved successfully");
@@ -137,7 +128,7 @@ function CrateProducts() {
                 className=""
                 {...provided.droppableProps}
                 ref={provided.innerRef}>
-                {images.length < 1 && (
+                {images?.length < 1 && (
                   <>
                     <label htmlFor="images">
                       <FiUploadCloud className="text-9xl text-blue-700 opacity-30 hover:opacity-70 w-full" />
@@ -167,11 +158,15 @@ function CrateProducts() {
                               ref={provided.innerRef}
                               {...provided.dragHandleProps}>
                               <div className="relative">
-                                <img
-                                  src={URL.createObjectURL(image)}
-                                  alt="dp"
-                                  className="w-full h-[200px] rounded-md mt-2 "
-                                />
+                                {image instanceof Object ? (
+                                  <img
+                                    src={URL.createObjectURL(image)}
+                                    alt="dp"
+                                    className="w-full h-[200px] rounded-md mt-2 "
+                                  />
+                                ) : (
+                                  <img src={image} alt="image" />
+                                )}
                                 <div className="absolute top-0 left-0">
                                   <CiCircleRemove
                                     onClick={() => removeItem(image)}
@@ -206,7 +201,7 @@ function CrateProducts() {
           onChange={(e) => setCategory(e.target.value)}
           name="category"
           className="w-full border outline-none border-blue-300 rounded-md px-3 py-1">
-          {categorys.map((cat, index) => (
+          {Category.map((cat, index) => (
             <option key={index} value={cat}>
               {cat}
             </option>

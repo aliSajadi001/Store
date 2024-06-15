@@ -5,7 +5,6 @@ import CardProduct from "../component/CardProduct";
 function Home({ msg }) {
   let [productsList, setProductsList] = useState([]);
   let [loading, setLoading] = useState(false);
-  console.log(productsList);
 
   useEffect(() => {
     toast.warn(msg);
@@ -33,7 +32,7 @@ function Home({ msg }) {
           <p className="text-3xl">Loading...</p>
         </>
       ) : (
-        <div className="grid md:grid-cols-3 lg:grid-cols-3 grid-cols-1 gap-20 place-items-center">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-20 place-items-center">
           {productsList &&
             productsList.map((product) => (
               <div key={product._id}>
