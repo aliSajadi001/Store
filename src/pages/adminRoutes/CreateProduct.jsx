@@ -62,23 +62,6 @@ function CrateProducts() {
   };
   return (
     <div className="w-full flex flex-col items-center pt-5 gap-5">
-      <div className="flex items-center justify-center gap-4 flex-wrap text-white font-normal ">
-        <Link
-          className="flex w-40 items-center justify-center rounded-sm border p-3 bg-blue-400"
-          to="/admin/product">
-          Product
-        </Link>
-        <Link
-          className="flex w-40 items-center justify-center rounded-sm border p-3 bg-blue-400"
-          to="/admin/createProduct">
-          CreateProduct
-        </Link>
-        <Link
-          className="flex w-40 items-center justify-center rounded-sm border p-3 bg-blue-400"
-          to="/admin/updateProduct">
-          UpdateProduct
-        </Link>
-      </div>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center p-5 gap-5 w-[500px] border bg-indigo-200 shadow-lg pb-2 shadow-blue-700 h-auto rounded-md">

@@ -4,6 +4,7 @@ import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
+import WithAuth from "../../helper/adminAuth";
 function CardProductsAdmin({
   name,
   price,
@@ -28,7 +29,7 @@ function CardProductsAdmin({
     }
   };
   return (
-    <div className="grid grid-cols-7 gap-4">
+    <div className="grid grid-cols-7 gap-4 mx-auto md:ml-56 ml-10">
       <div>
         <img
           alt="image"
@@ -37,7 +38,9 @@ function CardProductsAdmin({
         />
       </div>
       <div>{name}</div>
-      <div>{price}</div>
+      <div>
+        <span>$</span> {price}
+      </div>
       <div>{quantity}</div>
       <div>{discription?.substring(0, 10)}...</div>
       <div className="flex flex-col gap-1">
@@ -55,4 +58,4 @@ function CardProductsAdmin({
   );
 }
 
-export default CardProductsAdmin;
+export default WithAuth(CardProductsAdmin);

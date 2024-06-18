@@ -6,6 +6,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { CiCircleRemove } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import Categorys from "../../component/Categorys";
+import WithAuth from "../../helper/adminAuth";
 
 function UpdataProducts() {
   let navigate = useNavigate();
@@ -16,10 +17,8 @@ function UpdataProducts() {
   let [category, setCategory] = useState("");
   let [images, setImages] = useState([]);
   let [loading, setLoading] = useState(false);
-  console.log(images);
 
   let id = useParams().id;
-  console.log(id);
   let handleSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
@@ -35,7 +34,6 @@ function UpdataProducts() {
         formData.append("images", image);
       }
     }
-
     try {
       setLoading(true);
       let { data } = await axios.put(
@@ -43,8 +41,6 @@ function UpdataProducts() {
         formData
       );
       setLoading(false);
-      console.log(images);
-      console.log(data);
       if (data.success) {
         navigate("/admin");
       }
@@ -59,7 +55,6 @@ function UpdataProducts() {
       let { data } = await axios.get(
         `http://localhost:3001/singleProduct/${id}`
       );
-      console.log(data);
       setName(data?.product?.name);
       setPrice(data?.product?.price);
       setImages(data?.product?.imagePath);
@@ -206,7 +201,7 @@ function UpdataProducts() {
           name="category"
           className="w-full border outline-none border-blue-300 rounded-md px-3 py-1">
           {Categorys.map((cat, index) => (
-            <option key={index} value={category}>
+            <option key={index} value={cat}>
               {cat}
             </option>
           ))}
@@ -221,4 +216,4 @@ function UpdataProducts() {
   );
 }
 
-export default UpdataProducts;
+export default WithAuth(UpdataProducts);

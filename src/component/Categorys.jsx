@@ -1,6 +1,6 @@
 let Categorys = [
   "Tools",
-  "computer ",
+  "lap top",
   "mobile phones",
   "watch",
   "supplement",

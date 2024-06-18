@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { FaCartPlus } from "react-icons/fa6";
-function CardProduct({ name, price, images, quantity }) {
+function CardProduct({ name, price, images, quantity, id }) {
   let array = images?.map((image) => image);
+
   let aray = Array.from(array)[0];
 
   let qty = parseInt(quantity);
   return (
-    <div className="flex flex-col w-[200px] z-40 gap-3">
-      <Link to="/">
+    <div className="flex flex-col items-center  w-[200px] z-40 gap-3">
+      <Link to={`/productDetails/${id}`}>
         <img
           className="w-full h-[200px] hover:scale-95 duration-300 z-0"
           src={`http://localhost:3001/${aray.replace("public", "")}`}

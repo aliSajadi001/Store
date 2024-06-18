@@ -42,6 +42,7 @@ function Home({ msg }) {
                   quantity={product.quantity}
                   discription={product.discription}
                   images={product.imagePath}
+                  id={product._id}
                 />
               </div>
             ))}

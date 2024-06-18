@@ -30,7 +30,7 @@ function Admin() {
   let admin = useSelector((state) => state?.user?.user);
 
   return (
-    <div className="w-full h-auto   flex flex-col items-center pt-5 gap-5 px-7">
+    <div className="w-full h-auto flex flex-col items-center pt-5 gap-5 px-7">
       <div className="flex items-center justify-center gap-4 flex-wrap text-white font-normal ">
         <Link
           className="flex w-50 items-center text-xl justify-center rounded-sm border p-2 bg-blue-400"
@@ -48,14 +48,19 @@ function Admin() {
           are the admin the website
         </p>
       </div>
-      <p className="text-3xl italic border-b-2 border-black">All Products</p>
-      <div>
+      <div className="flex items-center justify-between gap-44">
+        <p className="text-3xl italic border-b-2 border-black">All Products</p>
+        <p className="text-3xl ">
+          <span>Number:</span> {productsList.length}
+        </p>
+      </div>
+      <div className="flex items-center">
         {loading ? (
           <>
-            <p className="text-3xl">Loading...</p>
+            <p className="text-3xl font-bold animate-pulse">Loading...</p>
           </>
         ) : (
-          <div className="">
+          <div>
             {productsList &&
               productsList?.map((product) => (
                 <div key={product._id}>
