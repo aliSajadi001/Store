@@ -5,8 +5,11 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { PiShoppingCartSimpleThin } from "react-icons/pi";
 
 function Navbar() {
+  let cartSelector = useSelector((state) => state.cart.cart);
+  let numderCart = cartSelector.reduce((acc, cur) => acc + cur.qty, 0);
   let selector = useSelector((state) => state.user);
   let handleClick = () => {
     localStorage.removeItem("token");
@@ -25,14 +28,19 @@ function Navbar() {
         </Link>
       </div>
       <div
-        className={`flex  flex-col gap-3 absolute top-0 right-0 md:flex-row  md:items-center md:static  bg-black text-white md:space-x-5 md:bg-white opacity-100 bg-opacity-90 md:text-black w-full md:w-auto text-center h-fit md:h-auto ${
+        className={`flex  flex-col gap-3 absolute top-0 z-50 right-0 md:flex-row  md:items-center md:static  bg-black text-white md:space-x-5 md:bg-white opacity-100 bg-opacity-90 md:text-black w-full md:w-auto text-center h-fit md:h-auto ${
           show ? " translate-y-0" : "-translate-y-96"
         } md:translate-y-0 transition-all duration-700 ease-in-out font-medium text-sm`}>
         <Link
           onClick={() => setShow(false)}
           className="hover:text-blue-600 p-3  transition-all duration-300 z-50 "
           to="/cart">
-          Cart
+          <div className="relative">
+            <PiShoppingCartSimpleThin className="size-7" />
+            <p className="absolute bg-blue-600 shadow-lg text-white opacity-100 bg-opacity-75 filter text-xs px-2 -top-1 left-4 rounded-full ">
+              {numderCart}
+            </p>
+          </div>
         </Link>
 
         {selector?.user ? (
@@ -63,7 +71,11 @@ function Navbar() {
           <Link
             onClick={() => setShow(false)}
             className="hover:text-blue-600 p-3 transition-all duration-300 z-50 "
-            to={selector?.user?.role === "true" ? "/admin" : "/profile"}>
+            to={
+              selector?.user?.role === "true"
+                ? "/admin"
+                : `/profile/${selector?.user?.id}`
+            }>
             <div className="flex flex-col items-center">
               <p className="text-red-700">{selector?.user?.name}</p>
               <p className="text-red-700 underline">{selector?.user?.email}</p>

@@ -3,7 +3,17 @@ import { useEffect, useState } from "react";
 import CardSimilarProduct from "./CardSimilarProduct";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-function CardDetails({ name, category, images, quantity, discription, price }) {
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/cartSlice";
+function CardDetails({
+  name,
+  category,
+  images,
+  quantity,
+  discription,
+  price,
+  id,
+}) {
   let [index, setIndex] = useState(0);
   let array = images?.map((image) => image);
   let aray = Array?.from(array)[index];
@@ -25,6 +35,8 @@ function CardDetails({ name, category, images, quantity, discription, price }) {
   useEffect(() => {
     similarProducts();
   }, [category]);
+
+  let dispatch = useDispatch();
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -37,7 +49,7 @@ function CardDetails({ name, category, images, quantity, discription, price }) {
     },
     tablet: {
       breakpoint: { max: 5024, min: 464 },
-      items: 2,
+      items: 3,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -84,7 +96,11 @@ function CardDetails({ name, category, images, quantity, discription, price }) {
               }`}>{`${parseInt(quantity) > 1 ? "Avilable" : "Finish"}`}</p>
           </div>
           <p>{discription}</p>
-          <button className="px-5 border border-blue-800 rounded-[5px] font-medium hover:bg-blue-500 hover:text-white">
+          <button
+            onClick={() =>
+              dispatch(addToCart({ name, array, discription, price, id }))
+            }
+            className="px-5 border border-blue-800 rounded-[5px] font-medium hover:bg-blue-500 hover:text-white">
             Add to cart
           </button>
         </div>
@@ -103,6 +119,7 @@ function CardDetails({ name, category, images, quantity, discription, price }) {
                   price={product.price}
                   images={product.imagePath}
                   id={product._id}
+                  qty={product.quantity}
                 />
               </div>
             ))}

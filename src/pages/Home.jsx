@@ -5,7 +5,7 @@ import CardProduct from "../component/CardProduct";
 function Home({ msg }) {
   let [productsList, setProductsList] = useState([]);
   let [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     toast.warn(msg);
   }, [msg]);
@@ -14,7 +14,6 @@ function Home({ msg }) {
     try {
       setLoading(true);
       let { data } = await axios.get("http://localhost:3001/getProducts");
-      console.log(data);
       setProductsList((prev) => [...prev, ...data.products]);
       setLoading(false);
     } catch (error) {
@@ -26,10 +25,12 @@ function Home({ msg }) {
     getProduct();
   }, []);
   return (
-    <div>
+    <div className="px-11 py-5">
       {loading ? (
         <>
-          <p className="text-3xl">Loading...</p>
+          <p className="text-4xl animate-pulse flex items-center justify-center pt-40">
+            Loading...
+          </p>
         </>
       ) : (
         <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-20 place-items-center">
@@ -37,12 +38,12 @@ function Home({ msg }) {
             productsList.map((product) => (
               <div key={product._id}>
                 <CardProduct
-                  name={product.name}
-                  price={product.price}
-                  quantity={product.quantity}
-                  discription={product.discription}
-                  images={product.imagePath}
-                  id={product._id}
+                  name={product?.name}
+                  price={product?.price}
+                  quantity={product?.quantity}
+                  discription={product?.discription}
+                  images={product?.imagePath}
+                  id={product?._id}
                 />
               </div>
             ))}

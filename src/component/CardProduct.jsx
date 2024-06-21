@@ -1,18 +1,23 @@
 import { Link } from "react-router-dom";
 import { FaCartPlus } from "react-icons/fa6";
-function CardProduct({ name, price, images, quantity, id }) {
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/cartSlice";
+function CardProduct({ name, price, images, quantity, id, discription }) {
   let array = images?.map((image) => image);
-
   let aray = Array.from(array)[0];
-
   let qty = parseInt(quantity);
+  let dispatch = useDispatch();
+
   return (
-    <div className="flex flex-col items-center  w-[200px] z-40 gap-3">
+    <div
+      className={`${
+        qty > 0 ? "flex flex-col w-[200px] z-40 gap-3" : "opacity-40"
+      }`}>
       <Link to={`/productDetails/${id}`}>
         <img
           className="w-full h-[200px] hover:scale-95 duration-300 z-0"
           src={`http://localhost:3001/${aray.replace("public", "")}`}
-          alt=""
+          alt="image"
         />
       </Link>
 
@@ -29,7 +34,16 @@ function CardProduct({ name, price, images, quantity, id }) {
           }`}>
           {qty > 0 ? "Avilable" : " Finishe"}
         </p>
-        <FaCartPlus className="text-2xl hover:text-blue-600 duration-300" />
+        {qty > 0 ? (
+          <FaCartPlus
+            onClick={() =>
+              dispatch(addToCart({ id, array, price, name, discription }))
+            }
+            className="text-2xl hover:text-blue-600 duration-300"
+          />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

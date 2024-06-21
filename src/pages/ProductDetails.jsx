@@ -34,12 +34,13 @@ function ProductDetails() {
       ) : (
         product && (
           <CardDetails
-            images={product.imagePath}
-            discription={product.discription}
-            name={product.name}
-            price={product.price}
-            quantity={product.quantity}
-            category={product.category}
+            images={product?.imagePath}
+            discription={product?.discription}
+            name={product?.name}
+            price={product?.price}
+            quantity={product?.quantity}
+            category={product?.category}
+            id={product?._id}
           />
         )
       )}
