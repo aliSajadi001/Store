@@ -5,7 +5,7 @@ import CardProduct from "../component/CardProduct";
 function Home({ msg }) {
   let [productsList, setProductsList] = useState([]);
   let [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     toast.warn(msg);
   }, [msg]);

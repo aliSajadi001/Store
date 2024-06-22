@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 function Profile() {
   let [name, setName] = useState("");
   let [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ function Profile() {
   useEffect(() => {
     getUserInfo();
   }, [id]);
-
+  let navigate = useNavigate();
   let updateUser = async (e) => {
     e.preventDefault();
     try {
@@ -30,7 +30,10 @@ function Profile() {
         email,
         password,
       });
-      console.log(data);
+      if (data.success) {
+        toast.success("updated sucessfully");
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }

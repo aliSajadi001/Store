@@ -5,15 +5,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/cartSlice";
-function CardDetails({
-  name,
-  category,
-  images,
-  quantity,
-  discription,
-  price,
-  id,
-}) {
+function CardDetails({ name, category, images, qty, discription, price, id }) {
   let [index, setIndex] = useState(0);
   let array = images?.map((image) => image);
   let aray = Array?.from(array)[index];
@@ -90,19 +82,25 @@ function CardDetails({
             </p>
             <p
               className={`${
-                parseInt(quantity) > 1
+                parseInt(qty) > 1
                   ? "px-2 rounded-md text-white bg-blue-700"
                   : "px-2 rounded-md text-white bg-red-700"
-              }`}>{`${parseInt(quantity) > 1 ? "Avilable" : "Finish"}`}</p>
+              }`}>{`${parseInt(qty) > 1 ? "Avilable" : "Finish"}`}</p>
           </div>
           <p>{discription}</p>
-          <button
-            onClick={() =>
-              dispatch(addToCart({ name, array, discription, price, id }))
-            }
-            className="px-5 border border-blue-800 rounded-[5px] font-medium hover:bg-blue-500 hover:text-white">
-            Add to cart
-          </button>
+          {qty > 0 ? (
+            <button
+              onClick={() =>
+                dispatch(
+                  addToCart({ name, array, discription, price, id, qty })
+                )
+              }
+              className="px-5 border border-blue-800 rounded-[5px] font-medium hover:bg-blue-500 hover:text-white">
+              Add to cart
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="flex flex-col gap-10">

@@ -38,7 +38,7 @@ function ProductDetails() {
             discription={product?.discription}
             name={product?.name}
             price={product?.price}
-            quantity={product?.quantity}
+            qty={product?.quantity}
             category={product?.category}
             id={product?._id}
           />

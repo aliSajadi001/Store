@@ -37,7 +37,9 @@ function CardProduct({ name, price, images, quantity, id, discription }) {
         {qty > 0 ? (
           <FaCartPlus
             onClick={() =>
-              dispatch(addToCart({ id, array, price, name, discription }))
+              dispatch(
+                addToCart({ id, array, price, name, discription, qty })
+              )
             }
             className="text-2xl hover:text-blue-600 duration-300"
           />

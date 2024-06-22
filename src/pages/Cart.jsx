@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import WithAuth from "../helper/withAuth";
 import { GiShoppingCart } from "react-icons/gi";
 import CardCart from "../component/CardCart";
 import { Link } from "react-router-dom";
+import { deleteAllCart } from "../../Redux/cartSlice";
 
 function Cart() {
+  let dispatch = useDispatch();
   let cartSlice = useSelector((state) => state.cart.cart);
   console.log(cartSlice.map((i) => i?.id));
   return (
@@ -35,7 +37,7 @@ function Cart() {
               />
             </div>
           ))}
-          <div className="flex md:flex-row flex-col items-center justify-center rounded-[7px] shadow-md  shadow-teal-700 gap-10 border md:h-[90px] md:w-[500px] ">
+          <div className="flex md:flex-row flex-col items-center justify-center rounded-[7px] shadow-md  shadow-teal-700 gap-10 border md:h-[90px] md:w-[800px] ">
             <div>
               <div className="flex items-center gap-2 font-medium">
                 <p>Total basket :</p>
@@ -48,9 +50,14 @@ function Cart() {
                 </p>
               </div>
             </div>
-            <div>
+            <div className="flex items-center gap-28">
               <button className="bg-blue-600 px-6 rounded-[5px] text-white py-1 font-medium">
                 Payment
+              </button>
+              <button
+                className="bg-red-600 px-6 rounded-[5px] text-white py-1 font-medium"
+                onClick={() => dispatch(deleteAllCart())}>
+                Delete all cart
               </button>
             </div>
           </div>
