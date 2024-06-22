@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import CreateProduct from "./pages/adminRoutes/CreateProduct";
 import UpdataProducts from "./pages/adminRoutes/UpdataProducts";
 import ProductDetails from "./pages/ProductDetails";
+import Search from "./pages/Search";
 function App() {
   let dispatch = useDispatch();
   let token = JSON.parse(localStorage.getItem("token"));
@@ -58,6 +59,7 @@ function App() {
         <Route path="/admin/createProduct" element={<CreateProduct />} />
         <Route path="/admin/updateProduct/:id" element={<UpdataProducts />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/search/:search" element={<Search />} />
         <Route path="/login" element={<Login />} />
         <Route path="/productDetails/:id" element={<ProductDetails />} />
       </Routes>
